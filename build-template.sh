@@ -5,7 +5,7 @@ set -euo pipefail
 VMID="${VMID:-9000}"
 NAME="${NAME:-ubuntu-26-04-template}"
 STORAGE="${STORAGE:-local-lvm}"
-BRIDGE="${BRIDGE:-vmbr0}"
+BRIDGE="${BRIDGE:-vSwitch}"
 VLAN_TAG="${VLAN_TAG:-19}"
 DISK_SIZE="${DISK_SIZE:-20G}"
 MEMORY="${MEMORY:-2048}"

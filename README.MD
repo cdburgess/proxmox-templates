@@ -60,7 +60,7 @@ All parameters are set via environment variables:
 | `VMID` | `9000` | VM ID for the template |
 | `NAME` | `ubuntu-26-04-template` | VM name |
 | `STORAGE` | `local-lvm` | Storage pool ID |
-| `BRIDGE` | `vmbr0` | Bridge for net0 |
+| `BRIDGE` | `vSwitch` | Bridge for net0 |
 | `VLAN_TAG` | `19` | VLAN tag for net0 |
 | `DISK_SIZE` | `20G` | Final disk size |
 | `MEMORY` | `2048` | RAM in MB |
