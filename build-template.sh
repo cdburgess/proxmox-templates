@@ -41,7 +41,7 @@ mapfile -t STORAGE_IDS < <(awk 'NR > 1 && $3 == "active" {print $1}' <<< "$STORA
 info "Active storage pools supporting VM disks and cloud-init:"
 printf "  %-20s %-12s %-12s\n" "ID" "TYPE" "FREE (GiB)"
 awk 'NR > 1 && $3 == "active" {
-  printf "  %-20s %-12s %-12.1f\n", $1, $2, $6 / 1024 / 1024 / 1024
+  printf "  %-20s %-12s %-12.1f\n", $1, $2, $6 / 1024 / 1024
 }' <<< "$STORAGE_STATUS"
 
 STORAGE_FOUND=false
@@ -83,8 +83,9 @@ if [[ ! "$DISK_SIZE" =~ ^([1-9][0-9]*)G$ ]]; then
   die "DISK_SIZE must be a positive whole number of GiB (for example, 20G)"
 fi
 DISK_BYTES=$((${BASH_REMATCH[1]} * 1024 * 1024 * 1024))
-FREE_BYTES=$(awk -v storage="$STORAGE" '$1 == storage {print $6; exit}' <<< "$STORAGE_STATUS")
-[[ "$FREE_BYTES" =~ ^[0-9]+$ ]] || die "Unable to determine free space for storage $STORAGE"
+FREE_KIB=$(awk -v storage="$STORAGE" '$1 == storage {print $6; exit}' <<< "$STORAGE_STATUS")
+[[ "$FREE_KIB" =~ ^[0-9]+$ ]] || die "Unable to determine free space for storage $STORAGE"
+FREE_BYTES=$((FREE_KIB * 1024))
 FREE_GIB=$(awk -v bytes="$FREE_BYTES" 'BEGIN {printf "%.1f", bytes / 1024 / 1024 / 1024}')
 if (( FREE_BYTES < DISK_BYTES )); then
   die "Storage $STORAGE has ${FREE_GIB} GiB free, but $DISK_SIZE requested. Free up space or choose another pool."

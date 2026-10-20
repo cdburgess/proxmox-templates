@@ -83,6 +83,8 @@ The script auto-detects available storage pools and will:
 - **Fail with available pool IDs** in non-interactive mode if `STORAGE` is unavailable or unsuitable; set `STORAGE` explicitly rather than relying on an arbitrary pool
 - **Fail** if available space is insufficient for the requested disk size
 
+Free space reported by `pvesm status` in KiB is displayed in GiB and converted to bytes for comparison with the requested disk size.
+
 Linked-clone support depends on the selected storage's configuration and disk format. Use `--full` when you want a full clone regardless of linked-clone support.
 
 ## Cloning from the Template
